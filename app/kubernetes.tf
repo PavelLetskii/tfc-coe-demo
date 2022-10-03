@@ -12,11 +12,13 @@ terraform {
   }
 }
 
-data "terraform_remote_state" "eks" {
-  backend = "local"
-
+data "terraform_remote_state" "network" {
+  backend = "remote"
   config = {
-    path = "../learn-terraform-provision-eks-cluster/terraform.tfstate"
+    organization = "tfc-coe-demo"
+    workspaces = {
+      name = "tfc-coe-demo-infra"
+    }
   }
 }
 
