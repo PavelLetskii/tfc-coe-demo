@@ -12,7 +12,7 @@ terraform {
   }
 }
 
-data "terraform_remote_state" "network" {
+data "terraform_remote_state" "infra" {
   backend = "remote"
   config = {
     organization = "tfc-coe-demo"
@@ -24,12 +24,11 @@ data "terraform_remote_state" "network" {
 
 # Retrieve EKS cluster information
 provider "aws" {
-  region = data.terraform_remote_state.eks.outputs.region
-  profile = data.terraform_remote_state.eks.outputs.profile
+  region = data.terraform_remote_state.infra.outputs.region
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = data.terraform_remote_state.eks.outputs.cluster_id
+  name = data.terraform_remote_state.infra.outputs.cluster_id
 }
 
 provider "kubernetes" {
@@ -44,9 +43,9 @@ provider "kubernetes" {
       "--cluster-name",
       data.aws_eks_cluster.cluster.name,
       "--profile",
-      data.terraform_remote_state.eks.outputs.profile,
+      data.terraform_remote_state.infra.outputs.profile,
       "--region",
-      data.terraform_remote_state.eks.outputs.region
+      data.terraform_remote_state.infra.outputs.region
     ]
   }
 }
