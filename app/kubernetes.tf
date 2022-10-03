@@ -42,8 +42,6 @@ provider "kubernetes" {
       "get-token",
       "--cluster-name",
       data.aws_eks_cluster.cluster.name,
-      "--profile",
-      data.terraform_remote_state.infra.outputs.profile,
       "--region",
       data.terraform_remote_state.infra.outputs.region
     ]
