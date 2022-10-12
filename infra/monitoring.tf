@@ -1,7 +1,10 @@
 module "lb_alarms" {
     source = "../modules/monitor"
 
-    application = "test_app"
-    set = "elb"
-    metric = "HealthyHostCount"
+    applications = "test_app"
+    customer_name = "test_customer"
+
+    vault_address = ""
+    vault_storage_path = ""
+    vault_token = ""
 }
