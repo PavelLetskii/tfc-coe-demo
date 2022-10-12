@@ -8,3 +8,15 @@ variable "profile" {
   type        = string
   default     = "sandbox"
 }
+
+variable "applications" {
+  default = {
+    appname = "test1"
+    appdata = {
+      targets = {
+        level = ["critical"]
+        set = "elb"
+      } 
+    }
+  }
+}
